@@ -10,5 +10,8 @@ exports.default = {
         USER_NAME: '',
         USER_PASSWORD: '',
         DATABASE: 'MTWyDM'
+    },
+    TOKEN: {
+        EXPIRES: 60 * 60 * 4 // 4 Horas
     }
 };

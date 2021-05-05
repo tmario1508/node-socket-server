@@ -19,7 +19,9 @@ const compression_1 = __importDefault(require("compression"));
 const env_1 = __importDefault(require("./enviroments/env"));
 const mongo_helpers_1 = __importDefault(require("./helpers/mongo.helpers"));
 const socket_logic_1 = __importDefault(require("./sockets/socket.logic"));
+const token_helper_1 = __importDefault(require("./helpers/token.helper"));
 const mongo = mongo_helpers_1.default.getInstance(env_1.default.MONGODB);
+const tokenHelper = token_helper_1.default(env_1.default, mongo);
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongo.connect(env_1.default.MONGODB.DATABASE);
     if (mongo.statusConnection.status == 'success') {
@@ -52,6 +54,41 @@ const mongo = mongo_helpers_1.default.getInstance(env_1.default.MONGODB);
                 msg: 'API Real-Time funcionando correctamente'
             });
         });
+        app.post('/loginOAuth2', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+            const { correo, apiKey } = req.body;
+            const response = yield mongo.db.collection('usuarios')
+                .findOne({ correo, isVerify: true }, { projection: { _id: 0, correo: 1, fotoURL: 1, nombreCompleto: 1 } })
+                .then((result) => {
+                if (!result) {
+                    return {
+                        ok: false,
+                        code: 404,
+                        msg: `Lo sentimos, el usuario ${correo} no se ha registrado`
+                    };
+                }
+                return {
+                    ok: true,
+                    code: 200,
+                    msg: `Inicio de sesion realizado de manera exitosa para ${correo}`,
+                    result
+                };
+            })
+                .catch((error) => {
+                return {
+                    ok: false,
+                    code: 500,
+                    msg: `Ocurrio un error no contemplado al iniciar sesion con ${correo}`
+                };
+            });
+            if (response.ok == false) {
+                res.status(response.code).json(response);
+            }
+            else {
+                //Solicitar token para usuario
+                const token = yield tokenHelper.create(response.result, apiKey);
+                res.status(response.code).json({ token });
+            }
+        }));
         const htttpServer = http_1.default.createServer(app);
         const socketIO = require('socket.io')(htttpServer, {
             cors: {
@@ -64,7 +101,9 @@ const mongo = mongo_helpers_1.default.getInstance(env_1.default.MONGODB);
         // Funcionalidad Real-Time
         socketIO.on('connection', (socket) => {
             //To do: Logica Real-Time
-            console.log(`Nuevo cliente conectado con ID: ${socket.id}`);
+            //console.log(`Nuevo cliente conectado con ID: ${socket.id}`);
+            //Socket connect
+            socketLogic.listenSocketConnect(socket);
             //Logic SignUp
             socketLogic.signUp(socketIO, socket);
             //Logic disconnect

@@ -28,6 +28,8 @@ export default (ENV: any, mongo: any) => {
             // Utilizar la API KEY para consultar la tabla APP y obtener el SecretKey
             const response: any = await _getSecretKey(apiKey);
 
+            
+
             return new Promise((resolve: any, reject: any)=> {
                 jwt.sign(payload, response.secretKey, { expiresIn: ENV.TOKEN.EXPIRES }, (error: any, token: any) => {
                     if (error) {
@@ -36,7 +38,8 @@ export default (ENV: any, mongo: any) => {
                     return resolve({ ok: true, token });
                 });
             });
-        },
+        }, 
+
         verify: async (bearerToken: string, apiKey: string) => {
             const response: any = await _getSecretKey(apiKey);
             return jwt.verify(bearerToken, response.secretKey, (error: any, tokenDecoded: any) => {

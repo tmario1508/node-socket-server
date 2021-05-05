@@ -2,6 +2,7 @@ import { MongoClient, MongoClientOptions } from 'mongodb'
 
 
 export default class MongoDBHelper{
+
     public db: any;
     public statusConnection: any = {};
 
@@ -37,6 +38,7 @@ export default class MongoDBHelper{
                     msg: `Ocurrio un error al intentar establecer conexion con el servidor de MongoDB`
                 }
             });
+            
         if (this.statusConnection.status == 'success'){
             this.cnn = this.statusConnection.connexion;
             this.db = this.cnn.db(dataBase);
