@@ -3,7 +3,7 @@ export default {
         PORT: 3000
     },
     MONGODB: {
-        HOST: 'localhost',
+        HOST: '192.168.48.133',
         PORT: '27017',
         USER_NAME: '',
         USER_PASSWORD: '',
