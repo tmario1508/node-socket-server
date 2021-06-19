@@ -34,7 +34,8 @@ const tokenHelper = token_helper_1.default(env_1.default, mongo);
             'http://localhost:4200',
             'http://localhost:5200',
             'http://www.midominio.com',
-            'http://192.168.48.133'
+            'http://http://143.198.172.188',
+            'http://177.228.205.151'
         ];
         app.use(cors_1.default({
             origin: (origin, callback) => {
