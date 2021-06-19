@@ -5,7 +5,7 @@ exports.default = {
         PORT: 3000
     },
     MONGODB: {
-        HOST: '143.198.172.188',
+        HOST: 'http://143.198.172.188/',
         PORT: '27017',
         USER_NAME: '',
         USER_PASSWORD: '',
