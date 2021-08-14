@@ -3,10 +3,10 @@ export default {
         PORT: 3000
     },
     MONGODB: {
-        HOST: '143.198.172.188',
+        HOST: '10.2.76.2',
         PORT: '27017',
-        USER_NAME: '',
-        USER_PASSWORD: '',
+        USER_NAME: 'dba-root',
+        USER_PASSWORD: 'MTWDM',
         DATABASE: 'MTWyDM' 
     },
     TOKEN: {
