@@ -26,7 +26,7 @@ const tokenHelper = TokenHelper(ENV, mongo);
 
 
         let whitelist = [
-            'http://10.2.76.2:4200',
+            'http://10.2.76.3:80',
             'http://200.79.82.178:8090'
         ];
 
