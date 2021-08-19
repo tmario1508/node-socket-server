@@ -7,7 +7,7 @@ exports.default = {
     MONGODB: {
         HOST: '200.79.82.178',
         PORT: '27017',
-        USER_NAME: 'dba-root',
+        USER_NAME: 'db-root',
         USER_PASSWORD: 'MTWDM',
         DATABASE: 'MTWyDM'
     },
