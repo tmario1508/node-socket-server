@@ -28,7 +28,8 @@ const tokenHelper = TokenHelper(ENV, mongo);
         let whitelist = [
             'http://10.2.76.3',
             'http://localhost',
-            'http://200.79.82.178:8081'
+            'http://200.79.82.178:8081',
+            'http://187.243.159.174'
         ];
 
         app.use(cors({
